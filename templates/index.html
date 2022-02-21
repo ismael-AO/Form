@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>Document</title>
+  </head>
+
+  <body>
+    <main>
+      <form onsubmit="handleOnSubmit(event)">
+        <input id="value1" type="text" placeholder="Primeiro número" />
+        <input id="value2" type="text" placeholder="Segundo número" />
+        <select id="math_sign">
+          <option value="+">Somar</option>
+          <option value="-">Subtrair</option>
+          <option value="*">Multiplicar</option>
+          <option value="/">Dividir</option>
+        </select>
+        <button type="submit">Calcular</button>
+        <section>
+          <div>
+            <span id="message"> </span>
+          </div>
+        </section>
+      </form>
+    </main>
+  </body>
+
+  <script>
+    function handleOnSubmit(e) {
+      e.preventDefault();
+
+      const data = {
+        value1: document.getElementById("value1").value,
+        value2: document.getElementById("value2").value,
+        math_sign: document.getElementById("math_sign").value,
+      };
+      console.log(data);
+      let response = fetch("/calculate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          const element = document.getElementById("message");
+          element.innerText = `O resultado é: ${res.result}`;
+        });
+    }
+  </script>
+</html>
