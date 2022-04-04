@@ -13,25 +13,28 @@ def index():
 def calculate():
     data = json.loads(request.data.decode("utf-8"))
 
-    value1 = int(data["value1"])
-    value2 = int(data["value2"])
-    math_sign = data["math_sign"]
+    try:
+        value1 = int(data["value1"])
+        value2 = int(data["value2"])
+        math_sign = data["math_sign"]
 
-    resul = 0
+        resul = 0
 
-    if math_sign == "+":
-        resul = value1 + value2
+        if math_sign == "+":
+            resul = value1 + value2
 
-    if math_sign == "-":
-        resul = value1 - value2
+        if math_sign == "-":
+            resul = value1 - value2
 
-    if math_sign == "*":
-        resul = value1 * value2
+        if math_sign == "*":
+            resul = value1 * value2
 
-    if math_sign == "/":
-        resul = value1 / value2
+        if math_sign == "/":
+            resul = value1 / value2
 
-    return make_response(jsonify({"result": resul}))
+        return make_response(jsonify({"result": resul}))
+    except:
+        return make_response(jsonify({"result": "Erro ao calcular"}))
 
 
 if __name__ == "__main__":
