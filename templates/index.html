@@ -14,13 +14,13 @@
   <body>
     <main>
       <form onsubmit="handleOnSubmit(event)">
-        <input id="value1" type="text" placeholder="Primeiro número" />
-        <input id="value2" type="text" placeholder="Segundo número" />
+        <input id="value1" type="text" placeholder="Dígite número" />
+        <input id="value2" type="text" placeholder="Exposente" />
         <select id="math_sign">
-          <option value="+">Somar</option>
-          <option value="-">Subtrair</option>
-          <option value="*">Multiplicar</option>
-          <option value="/">Dividir</option>
+          <option value="expoente">Expoente</option>
+          <option value="raiz_quadrada">Raiz quadrada</option>
+          <option value="logaritmo">Logaritmo</option>
+
         </select>
         <button type="submit">Calcular</button>
         <section>
@@ -41,7 +41,7 @@
         value2: document.getElementById("value2").value,
         math_sign: document.getElementById("math_sign").value,
       };
-      console.log(data);
+
       let response = fetch("/calculate", {
         method: "POST",
         headers: {
