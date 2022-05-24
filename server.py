@@ -1,5 +1,7 @@
 from flask import Flask, request, render_template, make_response, jsonify
 import json
+from calculate import Calcular
+
 
 app = Flask(__name__)
 
@@ -13,26 +15,24 @@ def index():
 def calculate():
     data = json.loads(request.data.decode("utf-8"))
 
+    calcular = Calcular()
     try:
-        value1 = int(data["value1"])
-        value2 = int(data["value2"])
+        value1 = float(data["value1"])
+        expoente = int(data["value2"])
         math_sign = data["math_sign"]
 
-        resul = 0
+        result = 0
 
-        if math_sign == "+":
-            resul = value1 + value2
+        if math_sign == "expoente":
+            result = calcular.expoente(expoente, value1)
 
-        if math_sign == "-":
-            resul = value1 - value2
+        if math_sign == "raiz_quadrada":
+            result = calcular.raiz_quadrada(value1)
 
-        if math_sign == "*":
-            resul = value1 * value2
+        if math_sign == "logaritmo":
+            result = calcular.logaritmo(value1)
 
-        if math_sign == "/":
-            resul = value1 / value2
-
-        return make_response(jsonify({"result": resul}))
+        return make_response(jsonify({"result": result}))
     except:
         return make_response(jsonify({"result": "Erro ao calcular"}))
 
